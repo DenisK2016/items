@@ -1,0 +1,5 @@
+.project
+.settings/
+dataccess/.classpath
+datamodel/.classpath
+services/.classpath
