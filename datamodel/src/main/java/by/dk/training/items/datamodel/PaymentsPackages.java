@@ -1,20 +1,30 @@
 package by.dk.training.items.datamodel;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 public class PaymentsPackages extends IdRecipient {
 
-	private Packages pack;
+	private Packages tacking_code;
 	private Date paymentDeadline;
 	private Integer daysOfDelay;
-	private Double debt;
+	private BigDecimal debt;
+	private FinePackages finePack;
 
-	public Packages getPack() {
-		return pack;
+	public FinePackages getFinePack() {
+		return finePack;
 	}
 
-	public void setPack(Packages pack) {
-		this.pack = pack;
+	public void setFinePack(FinePackages finePack) {
+		this.finePack = finePack;
+	}
+
+	public Packages getTacking_code() {
+		return tacking_code;
+	}
+
+	public void setTacking_code(Packages tacking_code) {
+		this.tacking_code = tacking_code;
 	}
 
 	public Date getPaymentDeadline() {
@@ -33,11 +43,11 @@ public class PaymentsPackages extends IdRecipient {
 		this.daysOfDelay = daysOfDelay;
 	}
 
-	public Double getDebt() {
+	public BigDecimal getDebt() {
 		return debt;
 	}
 
-	public void setDebt(Double debt) {
+	public void setDebt(BigDecimal debt) {
 		this.debt = debt;
 	}
 

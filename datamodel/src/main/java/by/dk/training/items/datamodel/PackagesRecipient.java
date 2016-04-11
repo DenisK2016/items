@@ -1,34 +1,36 @@
 package by.dk.training.items.datamodel;
 
+import java.math.BigDecimal;
+
 public class PackagesRecipient extends IdRecipient {
 
-	private Double priceForTheLastMonth; // Цена всех посылок за последний месяц
-	private Float weightForTheLastMonth;
-	private Double limitPrice;
+	private BigDecimal priceForTheLastMonth; // Цена всех посылок за последний месяц
+	private Double weightForTheLastMonth;
+	private BigDecimal limitPrice;
 	private Double limitWeight;
 	private Integer allPackages;
 
-	public Double getPriceForTheLastMonth() {
+	public BigDecimal getPriceForTheLastMonth() {
 		return priceForTheLastMonth;
 	}
 
-	public void setPriceForTheLastMonth(Double priceForTheLastMonth) {
+	public void setPriceForTheLastMonth(BigDecimal priceForTheLastMonth) {
 		this.priceForTheLastMonth = priceForTheLastMonth;
 	}
 
-	public Float getWeightForTheLastMonth() {
+	public Double getWeightForTheLastMonth() {
 		return weightForTheLastMonth;
 	}
 
-	public void setWeightForTheLastMonth(Float weightForTheLastMonth) {
+	public void setWeightForTheLastMonth(Double weightForTheLastMonth) {
 		this.weightForTheLastMonth = weightForTheLastMonth;
 	}
 
-	public Double getLimitPrice() {
+	public BigDecimal getLimitPrice() {
 		return limitPrice;
 	}
 
-	public void setLimitPrice(Double limitPrice) {
+	public void setLimitPrice(BigDecimal limitPrice) {
 		this.limitPrice = limitPrice;
 	}
 
@@ -47,4 +49,5 @@ public class PackagesRecipient extends IdRecipient {
 	public void setAllPackages(Integer allPackages) {
 		this.allPackages = allPackages;
 	}
+
 }

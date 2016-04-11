@@ -1,5 +1,6 @@
 package by.dk.training.items.datamodel;
 
+import java.math.BigInteger;
 import java.util.Date;
 
 public class PackageInfo extends Id {
@@ -7,8 +8,52 @@ public class PackageInfo extends Id {
 	private Packages pack;
 	private Date date;
 	private String description;
-	private Long serialNumber;
+	private BigInteger serialNumber;
 	private String countrySender;
+	private Type type;
+	private SubType<?> subType;
+	private Boolean banned;
+	private BannedPackages ban;
+
+	public PackageInfo() {
+		super();
+		if (type.getTypeBanned() != null) {
+			banned = true;
+			ban = new BannedPackages();
+		}
+	}
+
+	public BannedPackages getBan() {
+		return ban;
+	}
+
+	public void setBan(BannedPackages ban) {
+		this.ban = ban;
+	}
+
+	public Boolean getBanned() {
+		return banned;
+	}
+
+	public void setBanned(Boolean banned) {
+		this.banned = banned;
+	}
+
+	public SubType<?> getSubType() {
+		return subType;
+	}
+
+	public void setSubType(SubType<?> subType) {
+		this.subType = subType;
+	}
+
+	public Type getType() {
+		return type;
+	}
+
+	public void setType(Type type) {
+		this.type = type;
+	}
 
 	public Packages getPack() {
 		return pack;
@@ -34,11 +79,11 @@ public class PackageInfo extends Id {
 		this.description = description;
 	}
 
-	public Long getSerialNumber() {
+	public BigInteger getSerialNumber() {
 		return serialNumber;
 	}
 
-	public void setSerialNumber(Long serialNumber) {
+	public void setSerialNumber(BigInteger serialNumber) {
 		this.serialNumber = serialNumber;
 	}
 

@@ -11,6 +11,15 @@ public class Recipient extends Id {
 	private Fine fine;
 	private AdditionalPayments additionalPayments;
 	private PackagesRecipient packagesRecipient;
+	private Set<BannedPackages> ban;
+	
+	public Set<BannedPackages> getBan() {
+		return ban;
+	}
+
+	public void setBan(Set<BannedPackages> ban) {
+		this.ban = ban;
+	}
 
 	public String getName() {
 		return name;

@@ -1,17 +1,18 @@
 package by.dk.training.items.datamodel;
 
+import java.math.BigDecimal;
 import java.util.*;
 
 public class Fine extends IdRecipient {
 
-	private Double overallFine;
+	private BigDecimal overallFine;
 	private Set<String> finePackages;
 
-	public Double getOverallFine() {
+	public BigDecimal getOverallFine() {
 		return overallFine;
 	}
 
-	public void setOverallFine(Double overallFine) {
+	public void setOverallFine(BigDecimal overallFine) {
 		this.overallFine = overallFine;
 	}
 

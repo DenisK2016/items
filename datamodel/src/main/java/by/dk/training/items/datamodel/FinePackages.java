@@ -1,20 +1,21 @@
 package by.dk.training.items.datamodel;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 public class FinePackages extends IdRecipient {
 
-	private PaymentsPackages paymentPackege;
+	private PaymentsPackages trackingCode;
 	private Date paymentDeadline;
 	private Integer daysOfDelay;
-	private Double fine;
+	private BigDecimal fine;
 
-	public PaymentsPackages getPaymentPackege() {
-		return paymentPackege;
+	public PaymentsPackages getTrackingCode() {
+		return trackingCode;
 	}
 
-	public void setPaymentPackege(PaymentsPackages paymentPackege) {
-		this.paymentPackege = paymentPackege;
+	public void setTrackingCode(PaymentsPackages trackingCode) {
+		this.trackingCode = trackingCode;
 	}
 
 	public Date getPaymentDeadline() {
@@ -33,11 +34,11 @@ public class FinePackages extends IdRecipient {
 		this.daysOfDelay = daysOfDelay;
 	}
 
-	public Double getFine() {
+	public BigDecimal getFine() {
 		return fine;
 	}
 
-	public void setFine(Double fine) {
+	public void setFine(BigDecimal fine) {
 		this.fine = fine;
 	}
 

@@ -9,6 +9,25 @@ public class UserCredentials extends Id {
 	private Date created;
 	private StatusUser status;
 	private User user;
+	private String post;
+
+	public String getPost() {
+		return post;
+	}
+
+	public void setPost(String post) {
+		this.post = post;
+	}
+
+	private Ranks rank;
+
+	public Ranks getRank() {
+		return rank;
+	}
+
+	public void setRank(Ranks rank) {
+		this.rank = rank;
+	}
 
 	public String getFirstName() {
 		return firstName;

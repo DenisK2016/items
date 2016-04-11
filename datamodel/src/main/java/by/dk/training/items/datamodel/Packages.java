@@ -1,11 +1,13 @@
 package by.dk.training.items.datamodel;
 
+import java.math.BigDecimal;
+
 public class Packages extends IdRecipient {
 
 	private Long trackingCode;
 	private User user;
-	private Double price;
-	private Float weight;
+	private BigDecimal price;
+	private Double weight;
 	private PackageInfo packageInfo;
 	private PaymentsPackages paymentPackage;
 
@@ -25,19 +27,19 @@ public class Packages extends IdRecipient {
 		this.user = user;
 	}
 
-	public Double getPrice() {
+	public BigDecimal getPrice() {
 		return price;
 	}
 
-	public void setPrice(Double price) {
+	public void setPrice(BigDecimal price) {
 		this.price = price;
 	}
 
-	public Float getWeight() {
+	public Double getWeight() {
 		return weight;
 	}
 
-	public void setWeight(Float weight) {
+	public void setWeight(Double weight) {
 		this.weight = weight;
 	}
 
@@ -56,5 +58,4 @@ public class Packages extends IdRecipient {
 	public void setPaymentPackage(PaymentsPackages paymentPackage) {
 		this.paymentPackage = paymentPackage;
 	}
-
 }

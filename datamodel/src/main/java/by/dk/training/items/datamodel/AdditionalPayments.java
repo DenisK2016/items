@@ -1,35 +1,36 @@
 package by.dk.training.items.datamodel;
 
+import java.math.BigDecimal;
 import java.util.*;
 
 public class AdditionalPayments extends IdRecipient {
 
-	private Double paymentsForTheCurrentMonth;
-	private Double paymentsAll;
-	private Double overallDebt;
+	private BigDecimal paymentsForTheLastMonth;
+	private BigDecimal paymentsAll;
+	private BigDecimal overallDebt;
 	private Set<String> noPayments;
 
-	public Double getPaymentsForTheCurrentMonth() {
-		return paymentsForTheCurrentMonth;
+	public BigDecimal getPaymentsForTheLastMonth() {
+		return paymentsForTheLastMonth;
 	}
 
-	public void setPaymentsForTheCurrentMonth(Double paymentsForTheCurrentMonth) {
-		this.paymentsForTheCurrentMonth = paymentsForTheCurrentMonth;
+	public void setPaymentsForTheLastMonth(BigDecimal paymentsForTheLastMonth) {
+		this.paymentsForTheLastMonth = paymentsForTheLastMonth;
 	}
 
-	public Double getPaymentsAll() {
+	public BigDecimal getPaymentsAll() {
 		return paymentsAll;
 	}
 
-	public void setPaymentsAll(Double paymentsAll) {
+	public void setPaymentsAll(BigDecimal paymentsAll) {
 		this.paymentsAll = paymentsAll;
 	}
 
-	public Double getOverallDebt() {
+	public BigDecimal getOverallDebt() {
 		return overallDebt;
 	}
 
-	public void setOverallDebt(Double overallDebt) {
+	public void setOverallDebt(BigDecimal overallDebt) {
 		this.overallDebt = overallDebt;
 	}
 
@@ -40,5 +41,4 @@ public class AdditionalPayments extends IdRecipient {
 	public void setNoPayments(Set<String> noPayments) {
 		this.noPayments = noPayments;
 	}
-
 }
