@@ -2,31 +2,23 @@ package by.dk.training.items.datamodel;
 
 import java.util.Date;
 
-public class UserCredentials extends Id {
+public class UserCredentials {
 
+	private Integer id;
 	private String firstName;
 	private String lastName;
 	private Date created;
 	private StatusUser status;
-	private User user;
-	private String post;
-
-	public String getPost() {
-		return post;
-	}
-
-	public void setPost(String post) {
-		this.post = post;
-	}
-
 	private Ranks rank;
+	private String post;
+	private User user;
 
-	public Ranks getRank() {
-		return rank;
+	public Integer getId() {
+		return id;
 	}
 
-	public void setRank(Ranks rank) {
-		this.rank = rank;
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 	public String getFirstName() {
@@ -59,6 +51,22 @@ public class UserCredentials extends Id {
 
 	public void setStatus(StatusUser status) {
 		this.status = status;
+	}
+
+	public Ranks getRank() {
+		return rank;
+	}
+
+	public void setRank(Ranks rank) {
+		this.rank = rank;
+	}
+
+	public String getPost() {
+		return post;
+	}
+
+	public void setPost(String post) {
+		this.post = post;
 	}
 
 	public User getUser() {

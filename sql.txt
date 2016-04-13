@@ -1,21 +1,10 @@
-CREATE TABLE "packages" (
-	"id" serial NOT NULL,
-	"tracking_code" bigint NOT NULL UNIQUE,
-	"id_recipient" int NOT NULL,
-	"id_user" int NOT NULL,
-	"price" numeric NOT NULL DEFAULT '0',
-	"weight" numeric NOT NULL DEFAULT '0',
-	CONSTRAINT packages_pk PRIMARY KEY ("id")
-) WITH (
-  OIDS=FALSE
-);
-
-
-
 CREATE TABLE "recipient" (
 	"id" serial NOT NULL,
 	"name" character varying(100) NOT NULL,
+	"city" character varying(100) NOT NULL,
 	"address" character varying(100) NOT NULL,
+	"debt" numeric NOT NULL,
+	"fine" numeric NOT NULL,
 	CONSTRAINT recipient_pk PRIMARY KEY ("id")
 ) WITH (
   OIDS=FALSE
@@ -23,86 +12,20 @@ CREATE TABLE "recipient" (
 
 
 
-CREATE TABLE "package_info" (
-	"id" serial NOT NULL,
-	"tracking_code" int NOT NULL UNIQUE,
+CREATE TABLE "packages" (
+	"tracking_code" serial NOT NULL UNIQUE,
+	"id_recipient" int NOT NULL,
+	"price" numeric NOT NULL,
+	"weight" numeric NOT NULL,
+	"id_user" int NOT NULL,
 	"date" DATE NOT NULL,
 	"despcription" character varying(1000) NOT NULL,
-	"serial_number" bigint,
 	"country_sender" character varying(100) NOT NULL,
-	"type" int,
-	"subtype" int,
-	"banned" BOOLEAN NOT NULL,
-	CONSTRAINT package_info_pk PRIMARY KEY ("id")
-) WITH (
-  OIDS=FALSE
-);
-
-
-
-CREATE TABLE "packages_recipient" (
-	"id" serial NOT NULL,
-	"id_recipient" int NOT NULL UNIQUE,
-	"price_for_the_last_month" numeric NOT NULL,
-	"weight_for_the_last_month" numeric NOT NULL,
-	"limit_price" numeric NOT NULL,
-	"limit_weight" numeric NOT NULL,
-	"all_packages" int NOT NULL,
-	CONSTRAINT packages_recipient_pk PRIMARY KEY ("id")
-) WITH (
-  OIDS=FALSE
-);
-
-
-
-CREATE TABLE "additional_payments" (
-	"id" serial NOT NULL,
-	"id_recipient" int NOT NULL UNIQUE,
-	"payments_for_the_last_month" numeric NOT NULL,
-	"payments_all" numeric NOT NULL,
-	"overall_debt" numeric NOT NULL,
-	"no_payments" character varying(1000) NOT NULL,
-	CONSTRAINT additional_payments_pk PRIMARY KEY ("id")
-) WITH (
-  OIDS=FALSE
-);
-
-
-
-CREATE TABLE "fine" (
-	"id" serial NOT NULL,
-	"id_recipient" int NOT NULL UNIQUE,
-	"overall_fine" numeric NOT NULL,
-	"fine_packages" character varying(1000) NOT NULL,
-	CONSTRAINT fine_pk PRIMARY KEY ("id")
-) WITH (
-  OIDS=FALSE
-);
-
-
-
-CREATE TABLE "payments_packages" (
-	"id" serial NOT NULL,
-	"id_recipient" int NOT NULL,
-	"tacking_code" int NOT NULL UNIQUE,
 	"payment_deadline" DATE NOT NULL,
 	"days_of_delay" int NOT NULL,
 	"debt" numeric NOT NULL,
-	CONSTRAINT payments_packages_pk PRIMARY KEY ("id")
-) WITH (
-  OIDS=FALSE
-);
-
-
-
-CREATE TABLE "fine_packages" (
-	"id" serial NOT NULL,
-	"id_recipient" int NOT NULL,
-	"tacking_code" int NOT NULL UNIQUE,
-	"payment_deadline" DATE NOT NULL,
-	"days_of_delay" int NOT NULL,
 	"fine" numeric NOT NULL,
-	CONSTRAINT fine_packages_pk PRIMARY KEY ("id")
+	CONSTRAINT packages_pk PRIMARY KEY ("tracking_code")
 ) WITH (
   OIDS=FALSE
 );
@@ -135,15 +58,27 @@ CREATE TABLE "user_credentials" (
 
 
 
-CREATE TABLE "banned_packages" (
-	"id" serial NOT NULL UNIQUE,
-	"tracking_code" int NOT NULL UNIQUE,
-	"id_recipient" int NOT NULL,
-	"type_banned" int NOT NULL,
-	CONSTRAINT banned_packages_pk PRIMARY KEY ("id")
+CREATE TABLE "products" (
+	"id" serial NOT NULL,
+	"type_product" character varying NOT NULL,
+	"name_product" character varying NOT NULL UNIQUE,
+	"limit" int NOT NULL,
+	"price_product" numeric NOT NULL,
+	"status" BOOLEAN NOT NULL,
+	CONSTRAINT products_pk PRIMARY KEY ("id")
 ) WITH (
   OIDS=FALSE
 );
+
+
+
+CREATE TABLE "packages_products" (
+	"package" serial NOT NULL,
+	"id_product" serial NOT NULL
+) WITH (
+  OIDS=FALSE
+);
+
 
 
 
@@ -151,23 +86,9 @@ ALTER TABLE "packages" ADD CONSTRAINT "packages_fk0" FOREIGN KEY ("id_recipient"
 ALTER TABLE "packages" ADD CONSTRAINT "packages_fk1" FOREIGN KEY ("id_user") REFERENCES "user"("id");
 
 
-ALTER TABLE "package_info" ADD CONSTRAINT "package_info_fk0" FOREIGN KEY ("tracking_code") REFERENCES "packages"("tracking_code");
-
-ALTER TABLE "packages_recipient" ADD CONSTRAINT "packages_recipient_fk0" FOREIGN KEY ("id_recipient") REFERENCES "recipient"("id");
-
-ALTER TABLE "additional_payments" ADD CONSTRAINT "additional_payments_fk0" FOREIGN KEY ("id_recipient") REFERENCES "recipient"("id");
-
-ALTER TABLE "fine" ADD CONSTRAINT "fine_fk0" FOREIGN KEY ("id_recipient") REFERENCES "recipient"("id");
-
-ALTER TABLE "payments_packages" ADD CONSTRAINT "payments_packages_fk0" FOREIGN KEY ("id_recipient") REFERENCES "recipient"("id");
-ALTER TABLE "payments_packages" ADD CONSTRAINT "payments_packages_fk1" FOREIGN KEY ("tacking_code") REFERENCES "packages"("tracking_code");
-
-ALTER TABLE "fine_packages" ADD CONSTRAINT "fine_packages_fk0" FOREIGN KEY ("id_recipient") REFERENCES "recipient"("id");
-ALTER TABLE "fine_packages" ADD CONSTRAINT "fine_packages_fk1" FOREIGN KEY ("tacking_code") REFERENCES "payments_packages"("tacking_code");
-
-
 ALTER TABLE "user_credentials" ADD CONSTRAINT "user_credentials_fk0" FOREIGN KEY ("id") REFERENCES "user"("id");
 
-ALTER TABLE "banned_packages" ADD CONSTRAINT "banned_packages_fk0" FOREIGN KEY ("tracking_code") REFERENCES "package_info"("tracking_code");
-ALTER TABLE "banned_packages" ADD CONSTRAINT "banned_packages_fk1" FOREIGN KEY ("id_recipient") REFERENCES "recipient"("id");
+
+ALTER TABLE "packages_products" ADD CONSTRAINT "packages_products_fk0" FOREIGN KEY ("package") REFERENCES "packages"("tracking_code");
+ALTER TABLE "packages_products" ADD CONSTRAINT "packages_products_fk1" FOREIGN KEY ("id_product") REFERENCES "products"("id");
 

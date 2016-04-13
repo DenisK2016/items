@@ -1,24 +1,32 @@
 package by.dk.training.items.datamodel;
 
+import java.math.BigDecimal;
 import java.util.*;
 
-public class Recipient extends Id {
+public class Recipient {
+
+	private Integer id;
 	private String name;
+	private String city;
 	private String address;
+	private BigDecimal debt;
+	private BigDecimal fine;
 	private Set<Packages> packages;
-	private Set<PaymentsPackages> payPackeges;
-	private Set<FinePackages> finePackeges;
-	private Fine fine;
-	private AdditionalPayments additionalPayments;
-	private PackagesRecipient packagesRecipient;
-	private Set<BannedPackages> ban;
-	
-	public Set<BannedPackages> getBan() {
-		return ban;
+
+	public Set<Packages> getPackages() {
+		return packages;
 	}
 
-	public void setBan(Set<BannedPackages> ban) {
-		this.ban = ban;
+	public void setPackages(Set<Packages> packages) {
+		this.packages = packages;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 	public String getName() {
@@ -29,6 +37,14 @@ public class Recipient extends Id {
 		this.name = name;
 	}
 
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
 	public String getAddress() {
 		return address;
 	}
@@ -37,52 +53,20 @@ public class Recipient extends Id {
 		this.address = address;
 	}
 
-	public Set<Packages> getPackages() {
-		return packages;
+	public BigDecimal getDebt() {
+		return debt;
 	}
 
-	public void setPackages(Set<Packages> packages) {
-		this.packages = packages;
+	public void setDebt(BigDecimal debt) {
+		this.debt = debt;
 	}
 
-	public Set<PaymentsPackages> getPayPackeges() {
-		return payPackeges;
-	}
-
-	public void setPayPackeges(Set<PaymentsPackages> payPackeges) {
-		this.payPackeges = payPackeges;
-	}
-
-	public Set<FinePackages> getFinePackeges() {
-		return finePackeges;
-	}
-
-	public void setFinePackeges(Set<FinePackages> finePackeges) {
-		this.finePackeges = finePackeges;
-	}
-
-	public Fine getFine() {
+	public BigDecimal getFine() {
 		return fine;
 	}
 
-	public void setFine(Fine fine) {
+	public void setFine(BigDecimal fine) {
 		this.fine = fine;
-	}
-
-	public AdditionalPayments getAdditionalPayments() {
-		return additionalPayments;
-	}
-
-	public void setAdditionalPayments(AdditionalPayments additionalPayments) {
-		this.additionalPayments = additionalPayments;
-	}
-
-	public PackagesRecipient getPackagesRecipient() {
-		return packagesRecipient;
-	}
-
-	public void setPackagesRecipient(PackagesRecipient packagesRecipient) {
-		this.packagesRecipient = packagesRecipient;
 	}
 
 }

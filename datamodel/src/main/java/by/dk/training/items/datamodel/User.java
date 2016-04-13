@@ -2,12 +2,21 @@ package by.dk.training.items.datamodel;
 
 import java.util.*;
 
-public class User extends Id {
+public class User {
 
+	private Integer id;
 	private String login;
 	private String password;
 	private UserCredentials userCredentials;
 	private Set<Packages> packages;
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
 	public String getLogin() {
 		return login;

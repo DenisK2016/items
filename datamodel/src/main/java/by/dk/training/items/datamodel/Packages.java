@@ -1,15 +1,24 @@
 package by.dk.training.items.datamodel;
 
 import java.math.BigDecimal;
+import java.util.Date;
+import java.util.Set;
 
-public class Packages extends IdRecipient {
+public class Packages {
 
 	private Long trackingCode;
-	private User user;
+	private Recipient idRecipient;
 	private BigDecimal price;
 	private Double weight;
-	private PackageInfo packageInfo;
-	private PaymentsPackages paymentPackage;
+	private User idUser;
+	private Date date;
+	private String description;
+	private String countrySender;
+	private Date paymentDeadline;
+	private Integer daysOfDelay;
+	private BigDecimal debt;
+	private BigDecimal fine;
+	private Set<Products> products;
 
 	public Long getTrackingCode() {
 		return trackingCode;
@@ -19,12 +28,12 @@ public class Packages extends IdRecipient {
 		this.trackingCode = trackingCode;
 	}
 
-	public User getUser() {
-		return user;
+	public Recipient getIdRecipient() {
+		return idRecipient;
 	}
 
-	public void setUser(User user) {
-		this.user = user;
+	public void setIdRecipient(Recipient idRecipient) {
+		this.idRecipient = idRecipient;
 	}
 
 	public BigDecimal getPrice() {
@@ -43,19 +52,76 @@ public class Packages extends IdRecipient {
 		this.weight = weight;
 	}
 
-	public PackageInfo getPackageInfo() {
-		return packageInfo;
+	public User getIdUser() {
+		return idUser;
 	}
 
-	public void setPackageInfo(PackageInfo packageInfo) {
-		this.packageInfo = packageInfo;
+	public void setIdUser(User idUser) {
+		this.idUser = idUser;
 	}
 
-	public PaymentsPackages getPaymentPackage() {
-		return paymentPackage;
+	public Date getDate() {
+		return date;
 	}
 
-	public void setPaymentPackage(PaymentsPackages paymentPackage) {
-		this.paymentPackage = paymentPackage;
+	public void setDate(Date date) {
+		this.date = date;
 	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public String getCountrySender() {
+		return countrySender;
+	}
+
+	public void setCountrySender(String countrySender) {
+		this.countrySender = countrySender;
+	}
+
+	public Date getPaymentDeadline() {
+		return paymentDeadline;
+	}
+
+	public void setPaymentDeadline(Date paymentDeadline) {
+		this.paymentDeadline = paymentDeadline;
+	}
+
+	public Integer getDaysOfDelay() {
+		return daysOfDelay;
+	}
+
+	public void setDaysOfDelay(Integer daysOfDelay) {
+		this.daysOfDelay = daysOfDelay;
+	}
+
+	public BigDecimal getDebt() {
+		return debt;
+	}
+
+	public void setDebt(BigDecimal debt) {
+		this.debt = debt;
+	}
+
+	public BigDecimal getFine() {
+		return fine;
+	}
+
+	public void setFine(BigDecimal fine) {
+		this.fine = fine;
+	}
+
+	public Set<Products> getProducts() {
+		return products;
+	}
+
+	public void setProducts(Set<Products> products) {
+		this.products = products;
+	}
+
 }
