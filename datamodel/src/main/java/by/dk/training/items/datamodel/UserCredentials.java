@@ -2,15 +2,42 @@ package by.dk.training.items.datamodel;
 
 import java.util.Date;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="user_credentials")
 public class UserCredentials {
 
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Column(nullable=false)
 	private Integer id;
+	
+	@Column(nullable=false, length=100)
 	private String firstName;
+	
+	@Column(nullable=false, length=100)
 	private String lastName;
+	
+	@Column(nullable=false)
 	private Date created;
+	
+	@Column(nullable=false)
 	private StatusUser status;
-	private Ranks rank;
+	
+	@Column(length=200)
 	private String post;
+	
+	@Column
+	private Ranks rank;
+	
+	@OneToOne(mappedBy="userCredentials")
 	private User user;
 
 	public Integer getId() {

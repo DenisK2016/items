@@ -3,14 +3,39 @@ package by.dk.training.items.datamodel;
 import java.math.BigDecimal;
 import java.util.*;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="recipient")
 public class Recipient {
 
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Column(nullable=false)
 	private Integer id;
+	
+	@Column(nullable=false, length=100)
 	private String name;
+	
+	@Column(nullable=false, length=100)
 	private String city;
+	
+	@Column(nullable=false, length=100)
 	private String address;
+	
+	@Column(nullable=false)
 	private BigDecimal debt;
+	
+	@Column(nullable=false)
 	private BigDecimal fine;
+	
+	@OneToMany(mappedBy="idRecipient")
 	private Set<Packages> packages;
 
 	public Set<Packages> getPackages() {

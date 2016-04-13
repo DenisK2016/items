@@ -8,16 +8,18 @@
 	</parent>
 
 	<artifactId>dataccess</artifactId>
+	<version>1.0.0.0</version>
 
+	<dependencyManagement>
+		<dependencies>
 
-	<dependencies>
+			<dependency>
+				<groupId>by.dk.training.items</groupId>
+				<artifactId>datamodel</artifactId>
+			</dependency>
 
-		<dependency>
-			<groupId>by.dk.training.items</groupId>
-			<artifactId>datamodel</artifactId>
-		</dependency>
-
-	</dependencies>
+		</dependencies>
+	</dependencyManagement>
 
 
 

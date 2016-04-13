@@ -2,23 +2,68 @@ package by.dk.training.items.datamodel;
 
 import java.math.BigDecimal;
 import java.util.Date;
-import java.util.Set;
+import java.util.List;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="packages")
 public class Packages {
 
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Column(nullable=false)
 	private Long trackingCode;
+	
+	@ManyToOne
+	@JoinColumn(name="id_recipient")
 	private Recipient idRecipient;
+	
+	@Column(nullable=false)
 	private BigDecimal price;
+	
+	@Column(nullable=false)
 	private Double weight;
+	
+	@ManyToOne
+	@JoinColumn(name="id_user")
 	private User idUser;
+	
+	@Column(nullable=false)
 	private Date date;
+	
+	@Column(length=1000)
 	private String description;
+	
+	@Column(nullable=false, length=100)
 	private String countrySender;
+	
+	@Column(nullable=false)
 	private Date paymentDeadline;
+	
+	@Column(nullable=false)
 	private Integer daysOfDelay;
+	
+	@Column(nullable=false)
 	private BigDecimal debt;
+	
+	@Column(nullable=false)
 	private BigDecimal fine;
-	private Set<Products> products;
+	
+	@ManyToMany
+	@JoinTable(name="packages_products", 
+	joinColumns={@JoinColumn(name="package")}, 
+	inverseJoinColumns={@JoinColumn(name="id_product")})
+	private List<Products> products;
 
 	public Long getTrackingCode() {
 		return trackingCode;
@@ -116,11 +161,11 @@ public class Packages {
 		this.fine = fine;
 	}
 
-	public Set<Products> getProducts() {
+	public List<Products> getProducts() {
 		return products;
 	}
 
-	public void setProducts(Set<Products> products) {
+	public void setProducts(List<Products> products) {
 		this.products = products;
 	}
 
