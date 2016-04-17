@@ -36,7 +36,7 @@ CREATE TABLE "user" (
 	"id" serial NOT NULL UNIQUE,
 	"login" character varying(100) NOT NULL UNIQUE,
 	"password" character varying(100) NOT NULL,
-	CONSTRAINT user_pk PRIMARY KEY ("id","login")
+	CONSTRAINT user_pk PRIMARY KEY ("id")
 ) WITH (
   OIDS=FALSE
 );
@@ -48,9 +48,10 @@ CREATE TABLE "user_credentials" (
 	"first_name" character varying(100) NOT NULL,
 	"last_name" character varying(100) NOT NULL,
 	"created" DATE NOT NULL,
-	"status" int NOT NULL,
+	"status" character varying NOT NULL,
 	"post" character varying(200),
-	"rank" int,
+	"rank" character varying,
+	"email" character varying NOT NULL UNIQUE,
 	CONSTRAINT user_credentials_pk PRIMARY KEY ("id")
 ) WITH (
   OIDS=FALSE
@@ -60,7 +61,6 @@ CREATE TABLE "user_credentials" (
 
 CREATE TABLE "products" (
 	"id" serial NOT NULL,
-	"type_product" character varying NOT NULL,
 	"name_product" character varying NOT NULL UNIQUE,
 	"limit" int NOT NULL,
 	"price_product" numeric NOT NULL,
@@ -81,6 +81,26 @@ CREATE TABLE "packages_products" (
 
 
 
+CREATE TABLE "types" (
+	"id" serial NOT NULL UNIQUE,
+	"type_name" character varying NOT NULL UNIQUE,
+	"parent_type" character varying NOT NULL,
+	CONSTRAINT types_pk PRIMARY KEY ("id")
+) WITH (
+  OIDS=FALSE
+);
+
+
+
+CREATE TABLE "types_products" (
+	"id_products" int NOT NULL,
+	"id_types" int NOT NULL
+) WITH (
+  OIDS=FALSE
+);
+
+
+
 
 ALTER TABLE "packages" ADD CONSTRAINT "packages_fk0" FOREIGN KEY ("id_recipient") REFERENCES "recipient"("id");
 ALTER TABLE "packages" ADD CONSTRAINT "packages_fk1" FOREIGN KEY ("id_user") REFERENCES "user"("id");
@@ -91,4 +111,9 @@ ALTER TABLE "user_credentials" ADD CONSTRAINT "user_credentials_fk0" FOREIGN KEY
 
 ALTER TABLE "packages_products" ADD CONSTRAINT "packages_products_fk0" FOREIGN KEY ("package") REFERENCES "packages"("tracking_code");
 ALTER TABLE "packages_products" ADD CONSTRAINT "packages_products_fk1" FOREIGN KEY ("id_product") REFERENCES "products"("id");
+
+ALTER TABLE "types" ADD CONSTRAINT "types_fk0" FOREIGN KEY ("parent_type") REFERENCES "types"("id");
+
+ALTER TABLE "types_products" ADD CONSTRAINT "types_products_fk0" FOREIGN KEY ("id_products") REFERENCES "products"("id");
+ALTER TABLE "types_products" ADD CONSTRAINT "types_products_fk1" FOREIGN KEY ("id_types") REFERENCES "types"("id");
 
