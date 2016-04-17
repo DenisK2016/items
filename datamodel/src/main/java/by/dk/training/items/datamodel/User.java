@@ -16,7 +16,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "\"user\"")
+@Table(name = "users")
 public class User {
 
 	@Id
@@ -37,6 +37,17 @@ public class User {
 
 	@OneToMany(mappedBy = "idUser", fetch = FetchType.LAZY)
 	private Set<Packages> packages = new HashSet<>();
+
+	public User() {
+		super();
+	}
+
+	public User(String login, String password, UserCredentials userCredentials) {
+		super();
+		this.login = login;
+		this.password = password;
+		this.userCredentials = userCredentials;
+	}
 
 	public Integer getId() {
 		return id;
@@ -78,24 +89,17 @@ public class User {
 		this.packages.add(pack);
 	}
 
+	public void deletePackage(Packages pack) {
+		packages.remove(pack);
+	}
+
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", login=" + login + ", password=" + password + ", userCredentials="
 				+ getUserCredentials() + ", packages=" + getPackages() + "]";
 	}
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + ((login == null) ? 0 : login.hashCode());
-		result = prime * result + ((packages == null) ? 0 : packages.hashCode());
-		result = prime * result + ((password == null) ? 0 : password.hashCode());
-		result = prime * result + ((userCredentials == null) ? 0 : userCredentials.hashCode());
-		return result;
-	}
-
+	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj) {

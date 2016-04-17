@@ -23,9 +23,20 @@ public class Types {
 	@Column(name = "type_name", nullable = false)
 	private String typeName;
 
-	@ManyToOne(targetEntity = Types.class, fetch = FetchType.LAZY, cascade=CascadeType.ALL)
+	@ManyToOne(targetEntity = Types.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "parent_type", referencedColumnName = "id")
 	private Types parentType;
+
+	public Types() {
+		super();
+	}
+
+	public Types(String typeName, Types parentType) {
+		super();
+		this.typeName = typeName;
+		this.parentType = parentType;
+
+	}
 
 	public Types getParentType() {
 		return parentType;
@@ -56,15 +67,7 @@ public class Types {
 		return "Types [id=" + id + ", typeName=" + typeName + ", parentType=" + parentType + "]";
 	}
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + ((parentType == null) ? 0 : parentType.hashCode());
-		result = prime * result + ((typeName == null) ? 0 : typeName.hashCode());
-		return result;
-	}
+	
 
 	@Override
 	public boolean equals(Object obj) {

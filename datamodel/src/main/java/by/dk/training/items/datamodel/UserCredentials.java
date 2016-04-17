@@ -43,6 +43,22 @@ public class UserCredentials {
 	@Column(nullable = false, unique = true, updatable = false)
 	private String email;
 
+	public UserCredentials() {
+		super();
+	}
+
+	public UserCredentials(String firstName, String lastName, Date created, StatusUser status, String post, Ranks rank,
+			String email) {
+		super();
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.created = created;
+		this.status = status;
+		this.post = post;
+		this.rank = rank;
+		this.email = email;
+	}
+
 	public String getEmail() {
 		return email;
 	}
@@ -111,21 +127,6 @@ public class UserCredentials {
 	public String toString() {
 		return "UserCredentials [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", created="
 				+ created + ", status=" + status + ", post=" + post + ", rank=" + rank + "]";
-	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((created == null) ? 0 : created.hashCode());
-		result = prime * result + ((email == null) ? 0 : email.hashCode());
-		result = prime * result + ((firstName == null) ? 0 : firstName.hashCode());
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + ((lastName == null) ? 0 : lastName.hashCode());
-		result = prime * result + ((post == null) ? 0 : post.hashCode());
-		result = prime * result + ((rank == null) ? 0 : rank.hashCode());
-		result = prime * result + ((status == null) ? 0 : status.hashCode());
-		return result;
 	}
 
 	@Override

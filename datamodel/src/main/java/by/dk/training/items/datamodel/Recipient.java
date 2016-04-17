@@ -13,38 +13,55 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="recipient")
+@Table(name = "recipient")
 public class Recipient {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(nullable=false, unique=true)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(nullable = false, unique = true)
 	private Integer id;
-	
-	@Column(nullable=false, length=100)
+
+	@Column(nullable = false, length = 100)
 	private String name;
-	
-	@Column(nullable=false, length=100)
+
+	@Column(nullable = false, length = 100)
 	private String city;
-	
-	@Column(nullable=false, length=100)
+
+	@Column(nullable = false, length = 100)
 	private String address;
-	
-	@Column(nullable=false)
+
+	@Column(nullable = false)
 	private BigDecimal debt;
-	
-	@Column(nullable=false)
+
+	@Column(nullable = false)
 	private BigDecimal fine;
-	
-	@OneToMany(mappedBy="idRecipient", fetch = FetchType.LAZY)
-	private Set<Packages> packages;
+
+	@OneToMany(mappedBy = "idRecipient", fetch = FetchType.LAZY)
+	private Set<Packages> packages = new HashSet<>();
+
+	public Recipient() {
+		super();
+	}
+
+	public Recipient(String name, String city, String address, BigDecimal debt, BigDecimal fine) {
+		super();
+		this.name = name;
+		this.city = city;
+		this.address = address;
+		this.debt = debt;
+		this.fine = fine;
+	}
 
 	public Set<Packages> getPackages() {
 		return packages;
 	}
 
-	public void setPackages(Set<Packages> packages) {
-		this.packages = packages;
+	public void setPackages(Packages pack) {
+		this.packages.add(pack);
+	}
+
+	public void deletePackage(Packages pack) {
+		packages.remove(pack);
 	}
 
 	public Integer getId() {
@@ -80,6 +97,10 @@ public class Recipient {
 	}
 
 	public BigDecimal getDebt() {
+		debt = new BigDecimal(0);
+		for(Packages pack : packages){
+			debt = debt.add(pack.getDebt());
+		}
 		return debt;
 	}
 
@@ -88,6 +109,10 @@ public class Recipient {
 	}
 
 	public BigDecimal getFine() {
+		fine = new BigDecimal(0);
+		for(Packages pack : packages){
+			fine = fine.add(pack.getFine());
+		}
 		return fine;
 	}
 
@@ -95,25 +120,11 @@ public class Recipient {
 		this.fine = fine;
 	}
 
-	@Override
-	public String toString() {
-		return "Recipient [id=" + id + ", name=" + name + ", city=" + city + ", address=" + address + ", debt=" + debt
-				+ ", fine=" + fine + ", packages=" + packages + "]";
-	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((address == null) ? 0 : address.hashCode());
-		result = prime * result + ((city == null) ? 0 : city.hashCode());
-		result = prime * result + ((debt == null) ? 0 : debt.hashCode());
-		result = prime * result + ((fine == null) ? 0 : fine.hashCode());
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + ((name == null) ? 0 : name.hashCode());
-		result = prime * result + ((packages == null) ? 0 : packages.hashCode());
-		return result;
-	}
+//	@Override
+//	public String toString() {
+//		return "Recipient [id=" + id + ", name=" + name + ", city=" + city + ", address=" + address + ", debt=" + debt
+//				+ ", fine=" + fine + ", packages=" + packages + "]";
+//	}
 
 	@Override
 	public boolean equals(Object obj) {

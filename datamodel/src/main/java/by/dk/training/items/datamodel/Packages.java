@@ -1,14 +1,13 @@
 package by.dk.training.items.datamodel;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -23,11 +22,10 @@ import javax.persistence.TemporalType;
 public class Packages {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "tracking_code", nullable = false, unique = true)
 	private Long trackingCode;
 
-	@ManyToOne(targetEntity = User.class, fetch = FetchType.LAZY)
+	@ManyToOne(targetEntity = Recipient.class, fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_recipient", nullable = false)
 	private Recipient idRecipient;
 
@@ -48,13 +46,13 @@ public class Packages {
 	@Column(length = 1000)
 	private String description;
 
-	@Column(name = "countrySender", nullable = false, length = 100)
+	@Column(name = "country_sender", nullable = false, length = 100)
 	private String countrySender;
 
-	@Column(name = "paymentDeadline", nullable = false)
+	@Column(name = "payment_deadline", nullable = false)
 	private Date paymentDeadline;
 
-	@Column(name = "daysOfDelay", nullable = false)
+	@Column(name = "days_of_delay", nullable = false)
 	private Integer daysOfDelay;
 
 	@Column(nullable = false)
@@ -66,7 +64,33 @@ public class Packages {
 	@ManyToMany(targetEntity = Products.class, fetch = FetchType.LAZY)
 	@JoinTable(name = "packages_products", joinColumns = { @JoinColumn(name = "package") }, inverseJoinColumns = {
 			@JoinColumn(name = "id_product") })
-	private List<Products> products;
+	private List<Products> products = new ArrayList<>();
+
+	public Packages() {
+		super();
+	}
+
+	public void creatingPackage(Long trackingCode, Recipient idRecipient, BigDecimal price, Double weight, User idUser,
+			Date date, String description, String countrySender, Date paymentDeadline, Integer daysOfDelay,
+			BigDecimal debt, BigDecimal fine) {
+
+		this.trackingCode = trackingCode;
+		this.idRecipient = idRecipient;
+		this.price = price;
+		this.weight = weight;
+		this.idUser = idUser;
+		this.date = date;
+		this.description = description;
+		this.countrySender = countrySender;
+		this.paymentDeadline = paymentDeadline;
+		this.daysOfDelay = daysOfDelay;
+		this.debt = debt;
+		this.fine = fine;
+		
+		idRecipient.setPackages(this);
+		idRecipient.getDebt();                 //Возможно можно изменить!!!!!
+		idUser.setPackages(this);
+	}
 
 	public Long getTrackingCode() {
 		return trackingCode;
@@ -162,43 +186,28 @@ public class Packages {
 
 	public void setFine(BigDecimal fine) {
 		this.fine = fine;
+		idRecipient.getFine();     //Здесь я вызываю getFine для того чтобы обнавить fine у recipient. А fine этой посылки он возьмет из set(который внутри Recipient), в котором уже есть эта посылка. Она добавилась при создании Package, в методе.
 	}
 
 	public List<Products> getProducts() {
 		return products;
 	}
 
-	public void setProducts(List<Products> products) {
-		this.products = products;
+	public void setProducts(Products products) {
+		this.products.add(products);
 	}
 
-	@Override
-	public String toString() {
-		return "Packages [trackingCode=" + trackingCode + ", idRecipient=" + idRecipient + ", price=" + price
-				+ ", weight=" + weight + ", idUser=" + idUser + ", date=" + date + ", description=" + description
-				+ ", countrySender=" + countrySender + ", paymentDeadline=" + paymentDeadline + ", daysOfDelay="
-				+ daysOfDelay + ", debt=" + debt + ", fine=" + fine + ", products=" + products + "]";
+	public void deleteProduct(Products product) {
+		products.remove(product);
 	}
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((countrySender == null) ? 0 : countrySender.hashCode());
-		result = prime * result + ((date == null) ? 0 : date.hashCode());
-		result = prime * result + ((daysOfDelay == null) ? 0 : daysOfDelay.hashCode());
-		result = prime * result + ((debt == null) ? 0 : debt.hashCode());
-		result = prime * result + ((description == null) ? 0 : description.hashCode());
-		result = prime * result + ((fine == null) ? 0 : fine.hashCode());
-		result = prime * result + ((idRecipient == null) ? 0 : idRecipient.hashCode());
-		result = prime * result + ((idUser == null) ? 0 : idUser.hashCode());
-		result = prime * result + ((paymentDeadline == null) ? 0 : paymentDeadline.hashCode());
-		result = prime * result + ((price == null) ? 0 : price.hashCode());
-		result = prime * result + ((products == null) ? 0 : products.hashCode());
-		result = prime * result + ((trackingCode == null) ? 0 : trackingCode.hashCode());
-		result = prime * result + ((weight == null) ? 0 : weight.hashCode());
-		return result;
-	}
+//	@Override
+//	public String toString() {
+//		return "Packages [trackingCode=" + trackingCode + ", idRecipient=" + idRecipient + ", price=" + price
+//				+ ", weight=" + weight + ", idUser=" + idUser + ", date=" + date + ", description=" + description
+//				+ ", countrySender=" + countrySender + ", paymentDeadline=" + paymentDeadline + ", daysOfDelay="
+//				+ daysOfDelay + ", debt=" + debt + ", fine=" + fine + ", products=" + products + "]";
+//	}
 
 	@Override
 	public boolean equals(Object obj) {
