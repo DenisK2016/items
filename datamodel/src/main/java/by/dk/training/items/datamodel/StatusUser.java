@@ -1,5 +1,5 @@
 package by.dk.training.items.datamodel;
 
 public enum StatusUser {
-	ADMIN, OFFICER;
+	ADMIN, OFFICER, COMMANDER;
 }
