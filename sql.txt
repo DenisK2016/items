@@ -3,8 +3,6 @@ CREATE TABLE "recipient" (
 	"name" character varying(100) NOT NULL,
 	"city" character varying(100) NOT NULL,
 	"address" character varying(100) NOT NULL,
-	"debt" numeric NOT NULL,
-	"fine" numeric NOT NULL,
 	CONSTRAINT recipient_pk PRIMARY KEY ("id")
 ) WITH (
   OIDS=FALSE
@@ -22,9 +20,8 @@ CREATE TABLE "packages" (
 	"despcription" character varying(1000),
 	"country_sender" character varying(100) NOT NULL,
 	"payment_deadline" DATE NOT NULL,
-	"days_of_delay" int NOT NULL,
-	"debt" numeric NOT NULL,
 	"fine" numeric NOT NULL,
+	"paid" BOOLEAN NOT NULL,
 	CONSTRAINT packages_pk PRIMARY KEY ("tracking_code")
 ) WITH (
   OIDS=FALSE
@@ -32,11 +29,11 @@ CREATE TABLE "packages" (
 
 
 
-CREATE TABLE "user" (
+CREATE TABLE "users" (
 	"id" serial NOT NULL UNIQUE,
 	"login" character varying(100) NOT NULL UNIQUE,
 	"password" character varying(100) NOT NULL,
-	CONSTRAINT user_pk PRIMARY KEY ("id")
+	CONSTRAINT users_pk PRIMARY KEY ("id")
 ) WITH (
   OIDS=FALSE
 );
@@ -103,10 +100,10 @@ CREATE TABLE "types_products" (
 
 
 ALTER TABLE "packages" ADD CONSTRAINT "packages_fk0" FOREIGN KEY ("id_recipient") REFERENCES "recipient"("id");
-ALTER TABLE "packages" ADD CONSTRAINT "packages_fk1" FOREIGN KEY ("id_user") REFERENCES "user"("id");
+ALTER TABLE "packages" ADD CONSTRAINT "packages_fk1" FOREIGN KEY ("id_user") REFERENCES "users"("id");
 
 
-ALTER TABLE "user_credentials" ADD CONSTRAINT "user_credentials_fk0" FOREIGN KEY ("id") REFERENCES "user"("id");
+ALTER TABLE "user_credentials" ADD CONSTRAINT "user_credentials_fk0" FOREIGN KEY ("id") REFERENCES "users"("id");
 
 
 ALTER TABLE "packages_products" ADD CONSTRAINT "packages_products_fk0" FOREIGN KEY ("package") REFERENCES "packages"("tracking_code");
