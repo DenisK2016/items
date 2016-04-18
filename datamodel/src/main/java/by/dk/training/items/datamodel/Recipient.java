@@ -1,6 +1,6 @@
 package by.dk.training.items.datamodel;
 
-import java.math.BigDecimal;
+
 import java.util.*;
 
 import javax.persistence.Column;
@@ -30,12 +30,6 @@ public class Recipient {
 	@Column(nullable = false, length = 100)
 	private String address;
 
-	@Column(nullable = false)
-	private BigDecimal debt;
-
-	@Column(nullable = false)
-	private BigDecimal fine;
-
 	@OneToMany(mappedBy = "idRecipient", fetch = FetchType.LAZY)
 	private Set<Packages> packages = new HashSet<>();
 
@@ -43,13 +37,11 @@ public class Recipient {
 		super();
 	}
 
-	public Recipient(String name, String city, String address, BigDecimal debt, BigDecimal fine) {
+	public Recipient(String name, String city, String address) {
 		super();
 		this.name = name;
 		this.city = city;
 		this.address = address;
-		this.debt = debt;
-		this.fine = fine;
 	}
 
 	public Set<Packages> getPackages() {
@@ -96,29 +88,6 @@ public class Recipient {
 		this.address = address;
 	}
 
-	public BigDecimal getDebt() {
-		debt = new BigDecimal(0);
-		for(Packages pack : packages){
-			debt = debt.add(pack.getDebt());
-		}
-		return debt;
-	}
-
-	public void setDebt(BigDecimal debt) {
-		this.debt = debt;
-	}
-
-	public BigDecimal getFine() {
-		fine = new BigDecimal(0);
-		for(Packages pack : packages){
-			fine = fine.add(pack.getFine());
-		}
-		return fine;
-	}
-
-	public void setFine(BigDecimal fine) {
-		this.fine = fine;
-	}
 
 //	@Override
 //	public String toString() {
@@ -150,20 +119,6 @@ public class Recipient {
 				return false;
 			}
 		} else if (!city.equals(other.city)) {
-			return false;
-		}
-		if (debt == null) {
-			if (other.debt != null) {
-				return false;
-			}
-		} else if (!debt.equals(other.debt)) {
-			return false;
-		}
-		if (fine == null) {
-			if (other.fine != null) {
-				return false;
-			}
-		} else if (!fine.equals(other.fine)) {
 			return false;
 		}
 		if (id == null) {

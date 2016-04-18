@@ -52,27 +52,27 @@ public class Packages {
 	@Column(name = "payment_deadline", nullable = false)
 	private Date paymentDeadline;
 
-	@Column(name = "days_of_delay", nullable = false)
-	private Integer daysOfDelay;
-
-	@Column(nullable = false)
-	private BigDecimal debt;
-
 	@Column(nullable = false)
 	private BigDecimal fine;
+
+	@Column(nullable = false)
+	private Boolean paid;
 
 	@ManyToMany(targetEntity = Products.class, fetch = FetchType.LAZY)
 	@JoinTable(name = "packages_products", joinColumns = { @JoinColumn(name = "package") }, inverseJoinColumns = {
 			@JoinColumn(name = "id_product") })
 	private List<Products> products = new ArrayList<>();
 
-	public Packages() {
-		super();
+	public Boolean getPaid() {
+		return paid;
+	}
+
+	public void setPaid(Boolean paid) {
+		this.paid = paid;
 	}
 
 	public void creatingPackage(Long trackingCode, Recipient idRecipient, BigDecimal price, Double weight, User idUser,
-			Date date, String description, String countrySender, Date paymentDeadline, Integer daysOfDelay,
-			BigDecimal debt, BigDecimal fine) {
+			Date date, String description, String countrySender, Date paymentDeadline, BigDecimal fine, Boolean paid) {
 
 		this.trackingCode = trackingCode;
 		this.idRecipient = idRecipient;
@@ -83,12 +83,10 @@ public class Packages {
 		this.description = description;
 		this.countrySender = countrySender;
 		this.paymentDeadline = paymentDeadline;
-		this.daysOfDelay = daysOfDelay;
-		this.debt = debt;
 		this.fine = fine;
-		
+		this.paid = paid;
+
 		idRecipient.setPackages(this);
-		idRecipient.getDebt();                 //Возможно можно изменить!!!!!
 		idUser.setPackages(this);
 	}
 
@@ -164,29 +162,12 @@ public class Packages {
 		this.paymentDeadline = paymentDeadline;
 	}
 
-	public Integer getDaysOfDelay() {
-		return daysOfDelay;
-	}
-
-	public void setDaysOfDelay(Integer daysOfDelay) {
-		this.daysOfDelay = daysOfDelay;
-	}
-
-	public BigDecimal getDebt() {
-		return debt;
-	}
-
-	public void setDebt(BigDecimal debt) {
-		this.debt = debt;
-	}
-
 	public BigDecimal getFine() {
 		return fine;
 	}
 
 	public void setFine(BigDecimal fine) {
 		this.fine = fine;
-		idRecipient.getFine();     //Здесь я вызываю getFine для того чтобы обнавить fine у recipient. А fine этой посылки он возьмет из set(который внутри Recipient), в котором уже есть эта посылка. Она добавилась при создании Package, в методе.
 	}
 
 	public List<Products> getProducts() {
@@ -201,14 +182,6 @@ public class Packages {
 		products.remove(product);
 	}
 
-//	@Override
-//	public String toString() {
-//		return "Packages [trackingCode=" + trackingCode + ", idRecipient=" + idRecipient + ", price=" + price
-//				+ ", weight=" + weight + ", idUser=" + idUser + ", date=" + date + ", description=" + description
-//				+ ", countrySender=" + countrySender + ", paymentDeadline=" + paymentDeadline + ", daysOfDelay="
-//				+ daysOfDelay + ", debt=" + debt + ", fine=" + fine + ", products=" + products + "]";
-//	}
-
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj) {
@@ -221,6 +194,76 @@ public class Packages {
 			return false;
 		}
 		Packages other = (Packages) obj;
+		if (countrySender == null) {
+			if (other.countrySender != null) {
+				return false;
+			}
+		} else if (!countrySender.equals(other.countrySender)) {
+			return false;
+		}
+		if (date == null) {
+			if (other.date != null) {
+				return false;
+			}
+		} else if (!date.equals(other.date)) {
+			return false;
+		}
+		if (description == null) {
+			if (other.description != null) {
+				return false;
+			}
+		} else if (!description.equals(other.description)) {
+			return false;
+		}
+		if (fine == null) {
+			if (other.fine != null) {
+				return false;
+			}
+		} else if (!fine.equals(other.fine)) {
+			return false;
+		}
+		if (idRecipient == null) {
+			if (other.idRecipient != null) {
+				return false;
+			}
+		} else if (!idRecipient.equals(other.idRecipient)) {
+			return false;
+		}
+		if (idUser == null) {
+			if (other.idUser != null) {
+				return false;
+			}
+		} else if (!idUser.equals(other.idUser)) {
+			return false;
+		}
+		if (paid == null) {
+			if (other.paid != null) {
+				return false;
+			}
+		} else if (!paid.equals(other.paid)) {
+			return false;
+		}
+		if (paymentDeadline == null) {
+			if (other.paymentDeadline != null) {
+				return false;
+			}
+		} else if (!paymentDeadline.equals(other.paymentDeadline)) {
+			return false;
+		}
+		if (price == null) {
+			if (other.price != null) {
+				return false;
+			}
+		} else if (!price.equals(other.price)) {
+			return false;
+		}
+		if (products == null) {
+			if (other.products != null) {
+				return false;
+			}
+		} else if (!products.equals(other.products)) {
+			return false;
+		}
 		if (trackingCode == null) {
 			if (other.trackingCode != null) {
 				return false;
@@ -228,7 +271,26 @@ public class Packages {
 		} else if (!trackingCode.equals(other.trackingCode)) {
 			return false;
 		}
+		if (weight == null) {
+			if (other.weight != null) {
+				return false;
+			}
+		} else if (!weight.equals(other.weight)) {
+			return false;
+		}
 		return true;
 	}
+
+	// @Override
+	// public String toString() {
+	// return "Packages [trackingCode=" + trackingCode + ", idRecipient=" +
+	// idRecipient + ", price=" + price
+	// + ", weight=" + weight + ", idUser=" + idUser + ", date=" + date + ",
+	// description=" + description
+	// + ", countrySender=" + countrySender + ", paymentDeadline=" +
+	// paymentDeadline + ", daysOfDelay="
+	// + daysOfDelay + ", debt=" + debt + ", fine=" + fine + ", products=" +
+	// products + "]";
+	// }
 
 }
