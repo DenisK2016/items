@@ -31,13 +31,6 @@ public class Types {
 		super();
 	}
 
-	public Types(String typeName, Types parentType) {
-		super();
-		this.typeName = typeName;
-		this.parentType = parentType;
-
-	}
-
 	public Types getParentType() {
 		return parentType;
 	}
@@ -65,44 +58,6 @@ public class Types {
 	@Override
 	public String toString() {
 		return "Types [id=" + id + ", typeName=" + typeName + ", parentType=" + parentType + "]";
-	}
-
-	
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
-			return true;
-		}
-		if (obj == null) {
-			return false;
-		}
-		if (getClass() != obj.getClass()) {
-			return false;
-		}
-		Types other = (Types) obj;
-		if (id == null) {
-			if (other.id != null) {
-				return false;
-			}
-		} else if (!id.equals(other.id)) {
-			return false;
-		}
-		if (parentType == null) {
-			if (other.parentType != null) {
-				return false;
-			}
-		} else if (!parentType.equals(other.parentType)) {
-			return false;
-		}
-		if (typeName == null) {
-			if (other.typeName != null) {
-				return false;
-			}
-		} else if (!typeName.equals(other.typeName)) {
-			return false;
-		}
-		return true;
 	}
 
 }

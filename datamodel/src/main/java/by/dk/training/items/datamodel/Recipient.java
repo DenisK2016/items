@@ -37,23 +37,12 @@ public class Recipient {
 		super();
 	}
 
-	public Recipient(String name, String city, String address) {
-		super();
-		this.name = name;
-		this.city = city;
-		this.address = address;
-	}
-
 	public Set<Packages> getPackages() {
 		return packages;
 	}
 
-	public void setPackages(Packages pack) {
-		this.packages.add(pack);
-	}
-
-	public void deletePackage(Packages pack) {
-		packages.remove(pack);
+	public void setPackages(Set<Packages> pack) {
+		this.packages=pack;
 	}
 
 	public Integer getId() {
@@ -88,61 +77,10 @@ public class Recipient {
 		this.address = address;
 	}
 
-
-//	@Override
-//	public String toString() {
-//		return "Recipient [id=" + id + ", name=" + name + ", city=" + city + ", address=" + address + ", debt=" + debt
-//				+ ", fine=" + fine + ", packages=" + packages + "]";
-//	}
-
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
-			return true;
-		}
-		if (obj == null) {
-			return false;
-		}
-		if (getClass() != obj.getClass()) {
-			return false;
-		}
-		Recipient other = (Recipient) obj;
-		if (address == null) {
-			if (other.address != null) {
-				return false;
-			}
-		} else if (!address.equals(other.address)) {
-			return false;
-		}
-		if (city == null) {
-			if (other.city != null) {
-				return false;
-			}
-		} else if (!city.equals(other.city)) {
-			return false;
-		}
-		if (id == null) {
-			if (other.id != null) {
-				return false;
-			}
-		} else if (!id.equals(other.id)) {
-			return false;
-		}
-		if (name == null) {
-			if (other.name != null) {
-				return false;
-			}
-		} else if (!name.equals(other.name)) {
-			return false;
-		}
-		if (packages == null) {
-			if (other.packages != null) {
-				return false;
-			}
-		} else if (!packages.equals(other.packages)) {
-			return false;
-		}
-		return true;
+	public String toString() {
+		return "Recipient [id=" + id + ", name=" + name + ", city=" + city + ", address=" + address + ", packages="
+				+ packages + "]";
 	}
 
 }

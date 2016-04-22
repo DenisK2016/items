@@ -42,13 +42,6 @@ public class User {
 		super();
 	}
 
-	public User(String login, String password, UserCredentials userCredentials) {
-		super();
-		this.login = login;
-		this.password = password;
-		this.userCredentials = userCredentials;
-	}
-
 	public Integer getId() {
 		return id;
 	}
@@ -85,69 +78,14 @@ public class User {
 		return packages;
 	}
 
-	public void setPackages(Packages pack) {
-		this.packages.add(pack);
-	}
-
-	public void deletePackage(Packages pack) {
-		packages.remove(pack);
+	public void setPackages(Set<Packages> pack) {
+		this.packages = pack;
 	}
 
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", login=" + login + ", password=" + password + ", userCredentials="
-				+ getUserCredentials() + ", packages=" + getPackages() + "]";
-	}
-
-	
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
-			return true;
-		}
-		if (obj == null) {
-			return false;
-		}
-		if (getClass() != obj.getClass()) {
-			return false;
-		}
-		User other = (User) obj;
-		if (id == null) {
-			if (other.id != null) {
-				return false;
-			}
-		} else if (!id.equals(other.id)) {
-			return false;
-		}
-		if (login == null) {
-			if (other.login != null) {
-				return false;
-			}
-		} else if (!login.equals(other.login)) {
-			return false;
-		}
-		if (packages == null) {
-			if (other.packages != null) {
-				return false;
-			}
-		} else if (!packages.equals(other.packages)) {
-			return false;
-		}
-		if (password == null) {
-			if (other.password != null) {
-				return false;
-			}
-		} else if (!password.equals(other.password)) {
-			return false;
-		}
-		if (userCredentials == null) {
-			if (other.userCredentials != null) {
-				return false;
-			}
-		} else if (!userCredentials.equals(other.userCredentials)) {
-			return false;
-		}
-		return true;
+		return "User [id=" + id + ", login=" + login + ", password=" + password + ", userCredentials=" + userCredentials
+				+ ", packages=" + packages + "]";
 	}
 
 }

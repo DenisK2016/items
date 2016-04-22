@@ -14,7 +14,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.AssertTrue;
 
 @Entity
 @Table(name = "products")
@@ -35,7 +34,6 @@ public class Products {
 	private BigDecimal priceProduct;
 
 	@Column(nullable = false)
-	@AssertTrue
 	private Boolean status;
 
 	@ManyToMany(targetEntity = Types.class, fetch = FetchType.LAZY)
@@ -48,24 +46,12 @@ public class Products {
 		super();
 	}
 
-	public Products(String nameProduct, String limit, BigDecimal priceProduct, Boolean status) {
-		super();
-		this.nameProduct = nameProduct;
-		this.limit = limit;
-		this.priceProduct = priceProduct;
-		this.status = status;
-	}
-
 	public Set<Types> getTypes() {
 		return types;
 	}
 
-	public void setTypes(Types types) {
-		this.types.add(types);
-	}
-
-	public void deleteTypes(Types types) {
-		this.types.remove(types);
+	public void setTypes(Set<Types> types) {
+		this.types=types;
 	}
 
 	public Integer getId() {
@@ -112,63 +98,6 @@ public class Products {
 	public String toString() {
 		return "Products [id=" + id + ", nameProduct=" + nameProduct + ", limit=" + limit + ", priceProduct="
 				+ priceProduct + ", status=" + status + ", types=" + types + "]";
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
-			return true;
-		}
-		if (obj == null) {
-			return false;
-		}
-		if (getClass() != obj.getClass()) {
-			return false;
-		}
-		Products other = (Products) obj;
-		if (id == null) {
-			if (other.id != null) {
-				return false;
-			}
-		} else if (!id.equals(other.id)) {
-			return false;
-		}
-		if (limit == null) {
-			if (other.limit != null) {
-				return false;
-			}
-		} else if (!limit.equals(other.limit)) {
-			return false;
-		}
-		if (nameProduct == null) {
-			if (other.nameProduct != null) {
-				return false;
-			}
-		} else if (!nameProduct.equals(other.nameProduct)) {
-			return false;
-		}
-		if (priceProduct == null) {
-			if (other.priceProduct != null) {
-				return false;
-			}
-		} else if (!priceProduct.equals(other.priceProduct)) {
-			return false;
-		}
-		if (status == null) {
-			if (other.status != null) {
-				return false;
-			}
-		} else if (!status.equals(other.status)) {
-			return false;
-		}
-		if (types == null) {
-			if (other.types != null) {
-				return false;
-			}
-		} else if (!types.equals(other.types)) {
-			return false;
-		}
-		return true;
 	}
 
 }

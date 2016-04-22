@@ -47,18 +47,6 @@ public class UserCredentials {
 		super();
 	}
 
-	public UserCredentials(String firstName, String lastName, Date created, StatusUser status, String post, Ranks rank,
-			String email) {
-		super();
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.created = created;
-		this.status = status;
-		this.post = post;
-		this.rank = rank;
-		this.email = email;
-	}
-
 	public String getEmail() {
 		return email;
 	}
@@ -126,70 +114,7 @@ public class UserCredentials {
 	@Override
 	public String toString() {
 		return "UserCredentials [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", created="
-				+ created + ", status=" + status + ", post=" + post + ", rank=" + rank + "]";
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
-			return true;
-		}
-		if (obj == null) {
-			return false;
-		}
-		if (getClass() != obj.getClass()) {
-			return false;
-		}
-		UserCredentials other = (UserCredentials) obj;
-		if (created == null) {
-			if (other.created != null) {
-				return false;
-			}
-		} else if (!created.equals(other.created)) {
-			return false;
-		}
-		if (email == null) {
-			if (other.email != null) {
-				return false;
-			}
-		} else if (!email.equals(other.email)) {
-			return false;
-		}
-		if (firstName == null) {
-			if (other.firstName != null) {
-				return false;
-			}
-		} else if (!firstName.equals(other.firstName)) {
-			return false;
-		}
-		if (id == null) {
-			if (other.id != null) {
-				return false;
-			}
-		} else if (!id.equals(other.id)) {
-			return false;
-		}
-		if (lastName == null) {
-			if (other.lastName != null) {
-				return false;
-			}
-		} else if (!lastName.equals(other.lastName)) {
-			return false;
-		}
-		if (post == null) {
-			if (other.post != null) {
-				return false;
-			}
-		} else if (!post.equals(other.post)) {
-			return false;
-		}
-		if (rank != other.rank) {
-			return false;
-		}
-		if (status != other.status) {
-			return false;
-		}
-		return true;
+				+ created + ", status=" + status + ", post=" + post + ", rank=" + rank + ", email=" + email + "]";
 	}
 
 }

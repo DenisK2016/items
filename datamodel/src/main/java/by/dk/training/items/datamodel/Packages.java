@@ -71,25 +71,6 @@ public class Packages {
 		this.paid = paid;
 	}
 
-	public void creatingPackage(Long trackingCode, Recipient idRecipient, BigDecimal price, Double weight, User idUser,
-			Date date, String description, String countrySender, Date paymentDeadline, BigDecimal fine, Boolean paid) {
-
-		this.trackingCode = trackingCode;
-		this.idRecipient = idRecipient;
-		this.price = price;
-		this.weight = weight;
-		this.idUser = idUser;
-		this.date = date;
-		this.description = description;
-		this.countrySender = countrySender;
-		this.paymentDeadline = paymentDeadline;
-		this.fine = fine;
-		this.paid = paid;
-
-		idRecipient.setPackages(this);
-		idUser.setPackages(this);
-	}
-
 	public Long getTrackingCode() {
 		return trackingCode;
 	}
@@ -174,123 +155,16 @@ public class Packages {
 		return products;
 	}
 
-	public void setProducts(Products products) {
-		this.products.add(products);
-	}
-
-	public void deleteProduct(Products product) {
-		products.remove(product);
+	public void setProducts(List<Products> products) {
+		this.products = products;
 	}
 
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
-			return true;
-		}
-		if (obj == null) {
-			return false;
-		}
-		if (getClass() != obj.getClass()) {
-			return false;
-		}
-		Packages other = (Packages) obj;
-		if (countrySender == null) {
-			if (other.countrySender != null) {
-				return false;
-			}
-		} else if (!countrySender.equals(other.countrySender)) {
-			return false;
-		}
-		if (date == null) {
-			if (other.date != null) {
-				return false;
-			}
-		} else if (!date.equals(other.date)) {
-			return false;
-		}
-		if (description == null) {
-			if (other.description != null) {
-				return false;
-			}
-		} else if (!description.equals(other.description)) {
-			return false;
-		}
-		if (fine == null) {
-			if (other.fine != null) {
-				return false;
-			}
-		} else if (!fine.equals(other.fine)) {
-			return false;
-		}
-		if (idRecipient == null) {
-			if (other.idRecipient != null) {
-				return false;
-			}
-		} else if (!idRecipient.equals(other.idRecipient)) {
-			return false;
-		}
-		if (idUser == null) {
-			if (other.idUser != null) {
-				return false;
-			}
-		} else if (!idUser.equals(other.idUser)) {
-			return false;
-		}
-		if (paid == null) {
-			if (other.paid != null) {
-				return false;
-			}
-		} else if (!paid.equals(other.paid)) {
-			return false;
-		}
-		if (paymentDeadline == null) {
-			if (other.paymentDeadline != null) {
-				return false;
-			}
-		} else if (!paymentDeadline.equals(other.paymentDeadline)) {
-			return false;
-		}
-		if (price == null) {
-			if (other.price != null) {
-				return false;
-			}
-		} else if (!price.equals(other.price)) {
-			return false;
-		}
-		if (products == null) {
-			if (other.products != null) {
-				return false;
-			}
-		} else if (!products.equals(other.products)) {
-			return false;
-		}
-		if (trackingCode == null) {
-			if (other.trackingCode != null) {
-				return false;
-			}
-		} else if (!trackingCode.equals(other.trackingCode)) {
-			return false;
-		}
-		if (weight == null) {
-			if (other.weight != null) {
-				return false;
-			}
-		} else if (!weight.equals(other.weight)) {
-			return false;
-		}
-		return true;
+	public String toString() {
+		return "Packages [trackingCode=" + trackingCode + ", idRecipient=" + idRecipient + ", price=" + price
+				+ ", weight=" + weight + ", idUser=" + idUser + ", date=" + date + ", description=" + description
+				+ ", countrySender=" + countrySender + ", paymentDeadline=" + paymentDeadline + ", fine=" + fine
+				+ ", paid=" + paid + ", products=" + products + "]";
 	}
-
-	// @Override
-	// public String toString() {
-	// return "Packages [trackingCode=" + trackingCode + ", idRecipient=" +
-	// idRecipient + ", price=" + price
-	// + ", weight=" + weight + ", idUser=" + idUser + ", date=" + date + ",
-	// description=" + description
-	// + ", countrySender=" + countrySender + ", paymentDeadline=" +
-	// paymentDeadline + ", daysOfDelay="
-	// + daysOfDelay + ", debt=" + debt + ", fine=" + fine + ", products=" +
-	// products + "]";
-	// }
 
 }
