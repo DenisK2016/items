@@ -10,8 +10,8 @@ CREATE TABLE "recipient" (
 
 
 
-CREATE TABLE "packages" (
-	"tracking_code" serial NOT NULL UNIQUE,
+CREATE TABLE "package" (
+	"id" serial NOT NULL UNIQUE,
 	"id_recipient" int NOT NULL,
 	"price" numeric NOT NULL,
 	"weight" numeric NOT NULL,
@@ -22,7 +22,7 @@ CREATE TABLE "packages" (
 	"payment_deadline" DATE NOT NULL,
 	"fine" numeric NOT NULL,
 	"paid" BOOLEAN NOT NULL,
-	CONSTRAINT packages_pk PRIMARY KEY ("tracking_code")
+	CONSTRAINT package_pk PRIMARY KEY ("id")
 ) WITH (
   OIDS=FALSE
 );
@@ -56,42 +56,42 @@ CREATE TABLE "user_credentials" (
 
 
 
-CREATE TABLE "products" (
+CREATE TABLE "product" (
 	"id" serial NOT NULL,
 	"name_product" character varying NOT NULL UNIQUE,
 	"limit" int NOT NULL,
 	"price_product" numeric NOT NULL,
 	"status" BOOLEAN NOT NULL,
-	CONSTRAINT products_pk PRIMARY KEY ("id")
+	CONSTRAINT product_pk PRIMARY KEY ("id")
 ) WITH (
   OIDS=FALSE
 );
 
 
 
-CREATE TABLE "packages_products" (
-	"package" serial NOT NULL,
-	"id_product" serial NOT NULL
+CREATE TABLE "package_2_product" (
+	"package_id" int NOT NULL,
+	"product_id" int NOT NULL
 ) WITH (
   OIDS=FALSE
 );
 
 
 
-CREATE TABLE "types" (
+CREATE TABLE "type" (
 	"id" serial NOT NULL UNIQUE,
 	"type_name" character varying NOT NULL UNIQUE,
 	"parent_type" character varying NOT NULL,
-	CONSTRAINT types_pk PRIMARY KEY ("id")
+	CONSTRAINT type_pk PRIMARY KEY ("id")
 ) WITH (
   OIDS=FALSE
 );
 
 
 
-CREATE TABLE "types_products" (
-	"id_products" int NOT NULL,
-	"id_types" int NOT NULL
+CREATE TABLE "type_2_product" (
+	"product_id" int NOT NULL,
+	"type_id" int NOT NULL
 ) WITH (
   OIDS=FALSE
 );
@@ -99,18 +99,18 @@ CREATE TABLE "types_products" (
 
 
 
-ALTER TABLE "packages" ADD CONSTRAINT "packages_fk0" FOREIGN KEY ("id_recipient") REFERENCES "recipient"("id");
-ALTER TABLE "packages" ADD CONSTRAINT "packages_fk1" FOREIGN KEY ("id_user") REFERENCES "users"("id");
+ALTER TABLE "package" ADD CONSTRAINT "package_fk0" FOREIGN KEY ("id_recipient") REFERENCES "recipient"("id");
+ALTER TABLE "package" ADD CONSTRAINT "package_fk1" FOREIGN KEY ("id_user") REFERENCES "users"("id");
 
 
 ALTER TABLE "user_credentials" ADD CONSTRAINT "user_credentials_fk0" FOREIGN KEY ("id") REFERENCES "users"("id");
 
 
-ALTER TABLE "packages_products" ADD CONSTRAINT "packages_products_fk0" FOREIGN KEY ("package") REFERENCES "packages"("tracking_code");
-ALTER TABLE "packages_products" ADD CONSTRAINT "packages_products_fk1" FOREIGN KEY ("id_product") REFERENCES "products"("id");
+ALTER TABLE "package_2_product" ADD CONSTRAINT "package_2_product_fk0" FOREIGN KEY ("package_id") REFERENCES "package"("id");
+ALTER TABLE "package_2_product" ADD CONSTRAINT "package_2_product_fk1" FOREIGN KEY ("product_id") REFERENCES "product"("id");
 
-ALTER TABLE "types" ADD CONSTRAINT "types_fk0" FOREIGN KEY ("parent_type") REFERENCES "types"("id");
+ALTER TABLE "type" ADD CONSTRAINT "type_fk0" FOREIGN KEY ("parent_type") REFERENCES "type"("id");
 
-ALTER TABLE "types_products" ADD CONSTRAINT "types_products_fk0" FOREIGN KEY ("id_products") REFERENCES "products"("id");
-ALTER TABLE "types_products" ADD CONSTRAINT "types_products_fk1" FOREIGN KEY ("id_types") REFERENCES "types"("id");
+ALTER TABLE "type_2_product" ADD CONSTRAINT "type_2_product_fk0" FOREIGN KEY ("product_id") REFERENCES "product"("id");
+ALTER TABLE "type_2_product" ADD CONSTRAINT "type_2_product_fk1" FOREIGN KEY ("type_id") REFERENCES "type"("id");
 

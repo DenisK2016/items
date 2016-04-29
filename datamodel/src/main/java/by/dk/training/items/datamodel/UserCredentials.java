@@ -1,7 +1,5 @@
 package by.dk.training.items.datamodel;
 
-import java.util.Date;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -9,6 +7,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -18,7 +17,7 @@ public class UserCredentials {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(nullable = false, unique = true)
-	private Integer id;
+	private Long id;
 
 	@Column(name = "first_name", nullable = false, length = 100)
 	private String firstName;
@@ -27,7 +26,7 @@ public class UserCredentials {
 	private String lastName;
 
 	@Column
-	private Date created;
+	private String created;
 
 	@Column(nullable = false)
 	@Enumerated(EnumType.STRING)
@@ -43,6 +42,17 @@ public class UserCredentials {
 	@Column(nullable = false, unique = true, updatable = false)
 	private String email;
 
+	@OneToOne(mappedBy = "userCredentials")
+	private User user;
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
 	public UserCredentials() {
 		super();
 	}
@@ -55,11 +65,11 @@ public class UserCredentials {
 		this.email = email;
 	}
 
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -79,11 +89,11 @@ public class UserCredentials {
 		this.lastName = lastName;
 	}
 
-	public Date getCreated() {
+	public String getCreated() {
 		return created;
 	}
 
-	public void setCreated(Date created) {
+	public void setCreated(String created) {
 		this.created = created;
 	}
 

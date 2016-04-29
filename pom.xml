@@ -32,6 +32,11 @@
 				<version>1.0.0</version>
 			</dependency>
 			<dependency>
+				<groupId>by.dk.training.items</groupId>
+				<artifactId>services</artifactId>
+				<version>1.0.0</version>
+			</dependency>
+			<dependency>
 				<groupId>commons-dbcp</groupId>
 				<artifactId>commons-dbcp</artifactId>
 				<version>1.4</version>
@@ -111,6 +116,35 @@
 				<version>4.11</version>
 				<scope>test</scope>
 			</dependency>
+
+
+
+			<dependency>
+				<groupId>org.apache.logging.log4j</groupId>
+				<artifactId>log4j-api</artifactId>
+				<version>2.1</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.logging.log4j</groupId>
+				<artifactId>log4j-core</artifactId>
+				<version>2.1</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.logging.log4j</groupId>
+				<artifactId>log4j-slf4j-impl</artifactId>
+				<version>2.1</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.logging.log4j</groupId>
+				<artifactId>log4j-jcl</artifactId>
+				<version>2.1</version>
+			</dependency>
+			<dependency>
+				<groupId>org.hibernate</groupId>
+				<artifactId>hibernate-jpamodelgen</artifactId>
+				<version>4.3.4.Final</version>
+				<scope>provided</scope>
+			</dependency>
 		</dependencies>
 	</dependencyManagement>
 
@@ -130,7 +164,7 @@
 						<showDeprecation>true</showDeprecation>
 					</configuration>
 				</plugin>
-				
+
 				<!--plugin> <groupId>org.apache.maven.plugins</groupId> <artifactId>maven-eclipse-plugin</artifactId> 
 					<version>2.9</version> <configuration> <downloadSources>true</downloadSources> 
 					<wtpversion>${wtp.version}</wtpversion> </configuration> </plugin -->

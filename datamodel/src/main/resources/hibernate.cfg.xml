@@ -14,10 +14,10 @@
 		<property name="hibernate.enable_lazy_load_no_trans">true</property>
 
 		<mapping class="by.dk.training.items.datamodel.User" />	
-		<mapping class="by.dk.training.items.datamodel.Products" />
+		<mapping class="by.dk.training.items.datamodel.Product" />
 		<mapping class="by.dk.training.items.datamodel.UserCredentials" />
-		<mapping class="by.dk.training.items.datamodel.Packages" />
+		<mapping class="by.dk.training.items.datamodel.Package" />
 		<mapping class="by.dk.training.items.datamodel.Recipient" />
-		<mapping class="by.dk.training.items.datamodel.Types" />
+		<mapping class="by.dk.training.items.datamodel.Type" />
 	</session-factory>
-</hibernate-configuration> 
+</hibernate-configuration>

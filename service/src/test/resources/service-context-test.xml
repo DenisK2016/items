@@ -24,7 +24,7 @@
 		p:url="jdbc:postgresql://localhost:5432/mailings" 
 		p:username="postgres" 
 		p:password="948409"
-		p:schema="test" />
+		p:schema="public" />
 
 	
 </beans>

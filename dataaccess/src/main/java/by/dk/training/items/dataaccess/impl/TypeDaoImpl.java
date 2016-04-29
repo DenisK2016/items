@@ -13,44 +13,41 @@ import javax.persistence.criteria.Root;
 import org.hibernate.jpa.criteria.OrderImpl;
 import org.springframework.stereotype.Repository;
 
-import by.dk.training.items.dataaccess.UserDao;
-import by.dk.training.items.dataaccess.filters.UserFilter;
-import by.dk.training.items.datamodel.User;
-import by.dk.training.items.datamodel.User_;
+import by.dk.training.items.dataaccess.TypeDao;
+import by.dk.training.items.dataaccess.filters.TypeFilter;
+import by.dk.training.items.datamodel.Type;
+import by.dk.training.items.datamodel.Type_;
 
 @Repository
-public class UserDaoImpl extends AbstractDaoImpl<User, Long> implements UserDao {
+public class TypeDaoImpl extends AbstractDaoImpl<Type, Long> implements TypeDao {
 
-	protected UserDaoImpl() {
-		super(User.class);
+	protected TypeDaoImpl() {
+		super(Type.class);
 
 	}
 
 	@Override
-	public List<User> find(UserFilter filter) {
+	public List<Type> find(TypeFilter filter) {
 		EntityManager em = getEntityManager();
 
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 
-		CriteriaQuery<User> cq = cb.createQuery(User.class);
+		CriteriaQuery<Type> cq = cb.createQuery(Type.class);
 
-		Root<User> from = cq.from(User.class); // SELECT .. FROM ...
+		Root<Type> from = cq.from(Type.class); // SELECT .. FROM ...
 
-		cq.select(from); // Указывает что селектать SELECT *.  from - это таблица,
+		cq.select(from); // Указывает что селектать SELECT *. from - это
+							// таблица,
 							// а from.get... - это конкретная колонка
 
-		if (filter.getLogin() != null) {
-			Predicate loginEqualCondition = cb.equal(from.get(User_.login), filter.getLogin());
-			cq.where(loginEqualCondition);
+		if (filter.getTypeName() != null) {
+			Predicate tNameEqualCondition = cb.equal(from.get(Type_.typeName), filter.getTypeName());
+			cq.where(tNameEqualCondition);
 		}
 
 		// set fetching
-		if (filter.isFetchCredentials()) {
-			from.fetch(User_.userCredentials, JoinType.LEFT);
-		}
-		
-		if (filter.isFetchPackages()) {
-			from.fetch(User_.packages, JoinType.LEFT);
+		if (filter.isFetchParentType()) {
+			from.fetch(Type_.parentType, JoinType.LEFT);
 		}
 
 		// set sort params
@@ -58,7 +55,7 @@ public class UserDaoImpl extends AbstractDaoImpl<User, Long> implements UserDao 
 			cq.orderBy(new OrderImpl(from.get(filter.getSortProperty()), filter.isSortOrder()));
 		}
 
-		TypedQuery<User> q = em.createQuery(cq);
+		TypedQuery<Type> q = em.createQuery(cq);
 
 		// set paging
 		if (filter.getOffset() != null && filter.getLimit() != null) {
@@ -67,7 +64,7 @@ public class UserDaoImpl extends AbstractDaoImpl<User, Long> implements UserDao 
 		}
 
 		// set execute query
-		List<User> allitems = q.getResultList();
+		List<Type> allitems = q.getResultList();
 
 		return allitems;
 	}

@@ -14,35 +14,35 @@
 	    http://www.springframework.org/schema/task
 	    http://www.springframework.org/schema/task/spring-task-3.0.xsd">
 
-<!-- Включаем опцию использования конфигурационных аннотаций (@Annotation-based configuration)-->
+	<!-- Включаем опцию использования конфигурационных аннотаций (@Annotation-based 
+		configuration) -->
 	<context:annotation-config />
 
-<!-- Определяем папки, в которых будем автоматически искать бины-компоненты (@Component, @Service)  -->
+	<!-- Определяем папки, в которых будем автоматически искать бины-компоненты 
+		(@Component, @Service) -->
 	<context:component-scan base-package="by.dk.training.items.service.impl" />
 	<context:component-scan base-package="by.dk.training.items.dataaccess.impl" />
 
-<!-- Файл с настройками ресурсов для работы с данными (Data Access Resources). Для подключения к БД.
-Может выноситься отдельно в файл. -->
-<!-- класс измениет имя соединения -->
+	<!-- Файл с настройками ресурсов для работы с данными (Data Access Resources). 
+		Для подключения к БД. Может выноситься отдельно в файл. -->
+	<!-- класс измениет имя соединения -->
 	<bean id="dataSource"
 		class="by.dk.training.items.datamodel.util.SchemaNameAwareBasicDataSource"
-		destroy-method="close" 
-		p:driverClassName="org.postgresql.Driver"
-		p:url="jdbc:postgresql://localhost:5432/mailings" 
-		p:username="postgres" 
-		p:password="948409"
-		p:schema="public" />
+		destroy-method="close" p:driverClassName="org.postgresql.Driver"
+		p:url="jdbc:postgresql://localhost:5432/mailings" p:username="postgres"
+		p:password="948409" p:schema="public" />
 
-<!-- Конфигурирование менеджера сущностей (EntityManager) 
-осуществляется через объявление фабрики менеджера сущсностей 
-(EntityManagerFactory) С ПОМОШЬЮ LocalContainerEntityManagerFactoryBean -->
+	<!-- Конфигурирование менеджера сущностей (EntityManager) осуществляется 
+		через объявление фабрики менеджера сущсностей (EntityManagerFactory) С ПОМОШЬЮ 
+		LocalContainerEntityManagerFactoryBean -->
 	<bean id="entityManagerFactory"
 		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"
 		p:dataSource-ref="dataSource" />
 
-<!-- 	<tx:annotation-driven />
+	<tx:annotation-driven />
 
 	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager"
 		p:entityManagerFactory-ref="entityManagerFactory" />
- -->
+
+
 </beans>

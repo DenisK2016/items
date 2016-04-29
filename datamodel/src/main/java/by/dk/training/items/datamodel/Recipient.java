@@ -1,7 +1,8 @@
 package by.dk.training.items.datamodel;
 
 
-import java.util.*;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -19,7 +20,7 @@ public class Recipient {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(nullable = false, unique = true)
-	private Integer id;
+	private Long id;
 
 	@Column(nullable = false, length = 100)
 	private String name;
@@ -31,25 +32,25 @@ public class Recipient {
 	private String address;
 
 	@OneToMany(mappedBy = "idRecipient", fetch = FetchType.LAZY)
-	private Set<Packages> packages = new HashSet<>();
+	private Set<Package> packages = new HashSet<>();
 
 	public Recipient() {
 		super();
 	}
 
-	public Set<Packages> getPackages() {
+	public Set<Package> getPackages() {
 		return packages;
 	}
 
-	public void setPackages(Set<Packages> pack) {
-		this.packages=pack;
+	public void setPackages(Package pack) {
+		this.packages.add(pack);
 	}
 
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

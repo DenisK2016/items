@@ -1,9 +1,11 @@
 package by.dk.training.items.dataaccess;
 
+import java.util.List;
+
+import by.dk.training.items.dataaccess.filters.UserFilter;
 import by.dk.training.items.datamodel.User;
 
-public interface UserDao {
-	User get(Long id);
+public interface UserDao extends AbstractDao<User, Long> {
 
-	User save();
+	List<User> find(UserFilter filter);
 }
