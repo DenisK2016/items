@@ -5,6 +5,10 @@ import java.util.Date;
 
 import javax.persistence.metamodel.SingularAttribute;
 
+import by.dk.training.items.datamodel.Product;
+import by.dk.training.items.datamodel.Recipient;
+import by.dk.training.items.datamodel.User;
+
 public class PackageFilter {
 
 	private BigDecimal price;
@@ -15,6 +19,9 @@ public class PackageFilter {
 	private String paymentDeadline;
 	private BigDecimal fine;
 	private Boolean paid;
+	private User user;
+	private Recipient recipint;
+	private Product product;
 
 	private SingularAttribute sortProperty;
 	private boolean sortOrder;
@@ -24,6 +31,30 @@ public class PackageFilter {
 	private boolean isFetchUser;
 	private boolean isFetchRecipient;
 	private boolean isFetchProduct;
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public Recipient getRecipint() {
+		return recipint;
+	}
+
+	public void setRecipint(Recipient recipint) {
+		this.recipint = recipint;
+	}
+
+	public Product getProduct() {
+		return product;
+	}
+
+	public void setProduct(Product product) {
+		this.product = product;
+	}
 
 	public boolean isFetchProduct() {
 		return isFetchProduct;

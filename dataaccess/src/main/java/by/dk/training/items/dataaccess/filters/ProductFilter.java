@@ -4,12 +4,15 @@ import java.math.BigDecimal;
 
 import javax.persistence.metamodel.SingularAttribute;
 
+import by.dk.training.items.datamodel.Type;
+
 public class ProductFilter {
 
 	private String nameProduct;
 	private String limitProduct;
 	private BigDecimal priceProduct;
 	private Boolean status;
+	private Type types;
 
 	private SingularAttribute sortProperty;
 	private boolean sortOrder;
@@ -17,6 +20,14 @@ public class ProductFilter {
 	private Integer limit;
 
 	private boolean isFetchType;
+
+	public Type getTypes() {
+		return types;
+	}
+
+	public void setTypes(Type types) {
+		this.types = types;
+	}
 
 	public String getNameProduct() {
 		return nameProduct;

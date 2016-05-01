@@ -33,23 +33,19 @@ public class RecipientDaoImpl extends AbstractDaoImpl<Recipient, Long> implement
 
 		CriteriaQuery<Recipient> cq = cb.createQuery(Recipient.class);
 
-		Root<Recipient> from = cq.from(Recipient.class); // SELECT .. FROM ...
+		Root<Recipient> from = cq.from(Recipient.class); 
 
-		cq.select(from); // Указывает что селектать SELECT *. from - это
-							// таблица,
-							// а from.get... - это конкретная колонка
+		cq.select(from); 
 
-		if (filter.getName() != null) {
+		boolean name = (filter.getName() != null);
+		boolean city = (filter.getCity() != null);
+		boolean address = (filter.getAddress() != null);
+		boolean filt = name || city || address;
+		if (filt) {
 			Predicate NameEqualCondition = cb.equal(from.get(Recipient_.name), filter.getName());
-			cq.where(NameEqualCondition);
-		}
-		if (filter.getCity() != null) {
 			Predicate cityEqualCondition = cb.equal(from.get(Recipient_.city), filter.getCity());
-			cq.where(cityEqualCondition);
-		}
-		if (filter.getAddress() != null) {
 			Predicate addressEqualCondition = cb.equal(from.get(Recipient_.address), filter.getAddress());
-			cq.where(addressEqualCondition);
+			cq.where(cb.or(NameEqualCondition, cityEqualCondition, addressEqualCondition));
 		}
 
 		// set fetching
@@ -72,6 +68,7 @@ public class RecipientDaoImpl extends AbstractDaoImpl<Recipient, Long> implement
 
 		// set execute query
 		List<Recipient> allitems = q.getResultList();
+		
 
 		return allitems;
 	}

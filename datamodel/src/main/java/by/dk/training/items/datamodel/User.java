@@ -83,9 +83,12 @@ public class User {
 		this.packages = pack;
 	}
 
+	
+
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", login=" + login + ", password=" + password + "]";
+		return "User [id=" + id + ", login=" + login + ", password=" + password + ", \nuserCredentials=" + userCredentials
+				+ ", \npackages=" + packages + "]";
 	}
 
 	@Override

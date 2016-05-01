@@ -21,7 +21,6 @@ import by.dk.training.items.dataaccess.filters.PackageFilter;
 import by.dk.training.items.dataaccess.filters.ProductFilter;
 import by.dk.training.items.dataaccess.filters.RecipientFilter;
 import by.dk.training.items.dataaccess.filters.TypeFilter;
-import by.dk.training.items.dataaccess.filters.UserCredentialsFilter;
 import by.dk.training.items.dataaccess.filters.UserFilter;
 import by.dk.training.items.dataaccess.impl.AbstractDaoImpl;
 import by.dk.training.items.datamodel.Package;
@@ -296,25 +295,14 @@ public class UserServiceTest {
 		all = userService.find(filter);
 
 		Assert.assertEquals(all.size(), 1);
+		
+		filter.setLogin(null);
+		filter.setEmail("4@gmail.com");
+		all = userService.find(filter);
+		
+		System.out.println(all.size());
+		Assert.assertEquals(all.size(), 1);
 
-		UserCredentialsFilter credenFilter = new UserCredentialsFilter();
-		credenFilter.setLimit(5);
-		credenFilter.setOffset(0);
-		credenFilter.setFetchUser(true);
-		allCred = userService.find(credenFilter);
-
-		Assert.assertEquals(allCred.size(), 5);
-
-		credenFilter.setFirstName("Alex");
-		allCred = userService.find(credenFilter);
-
-		Assert.assertEquals(allCred.size(), 5);
-
-		credenFilter.setFirstName(null);
-		credenFilter.setEmail("3@gmail.com");
-		allCred = userService.find(credenFilter);
-
-		Assert.assertEquals(allCred.size(), 1);
 	}
 
 	private void registerUser(User profile, UserCredentials userCredentials, int i) {

@@ -40,9 +40,10 @@ public class TypeDaoImpl extends AbstractDaoImpl<Type, Long> implements TypeDao 
 							// таблица,
 							// а from.get... - это конкретная колонка
 
-		if (filter.getTypeName() != null) {
+		if (filter.getTypeName() != null || filter.getParentType() != null) {
 			Predicate tNameEqualCondition = cb.equal(from.get(Type_.typeName), filter.getTypeName());
-			cq.where(tNameEqualCondition);
+			Predicate pTypeEqualCondition = cb.equal(from.get(Type_.parentType), filter.getParentType());
+			cq.where(cb.or(tNameEqualCondition, pTypeEqualCondition));
 		}
 
 		// set fetching

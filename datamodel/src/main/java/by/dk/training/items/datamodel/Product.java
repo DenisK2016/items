@@ -1,8 +1,8 @@
 package by.dk.training.items.datamodel;
 
 import java.math.BigDecimal;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -39,19 +39,26 @@ public class Product {
 	@JoinTable(name = "type_2_product", joinColumns = { @JoinColumn(name = "product_id") }, inverseJoinColumns = {
 			@JoinColumn(name = "type_id") })
 	@ManyToMany(targetEntity = Type.class, fetch = FetchType.LAZY)
-	private Set<Type> types = new HashSet<>();
+	private List<Type> types = new ArrayList<>();
 
 	public Product() {
 		super();
 	}
 
-	public Set<Type> getTypes() {
+	public  List<Type> getTypes() {
 		return types;
 	}
 
 	public void setTypes(Type type) {
-		if (!this.types.contains(type)) {
-			this.types.add(type);
+		if(!types.contains(type)){
+			types.add(type);
+		}
+		Type pType = type.getParentType();
+		while (pType != null) {
+			if (!types.contains(pType)) {
+				types.add(pType);
+			}
+			pType = pType.getParentType();
 		}
 	}
 
@@ -98,76 +105,7 @@ public class Product {
 	@Override
 	public String toString() {
 		return "Products [id=" + id + ", nameProduct=" + nameProduct + ", limit=" + limit + ", priceProduct="
-				+ priceProduct + ", status=" + status + ", types=" + types + "]";
-	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + ((limit == null) ? 0 : limit.hashCode());
-		result = prime * result + ((nameProduct == null) ? 0 : nameProduct.hashCode());
-		result = prime * result + ((priceProduct == null) ? 0 : priceProduct.hashCode());
-		result = prime * result + ((status == null) ? 0 : status.hashCode());
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
-			return true;
-		}
-		if (obj == null) {
-			return false;
-		}
-		if (getClass() != obj.getClass()) {
-			return false;
-		}
-		Product other = (Product) obj;
-		if (id == null) {
-			if (other.id != null) {
-				return false;
-			}
-		} else if (!id.equals(other.id)) {
-			return false;
-		}
-		if (limit == null) {
-			if (other.limit != null) {
-				return false;
-			}
-		} else if (!limit.equals(other.limit)) {
-			return false;
-		}
-		if (nameProduct == null) {
-			if (other.nameProduct != null) {
-				return false;
-			}
-		} else if (!nameProduct.equals(other.nameProduct)) {
-			return false;
-		}
-		if (priceProduct == null) {
-			if (other.priceProduct != null) {
-				return false;
-			}
-		} else if (!priceProduct.equals(other.priceProduct)) {
-			return false;
-		}
-		if (status == null) {
-			if (other.status != null) {
-				return false;
-			}
-		} else if (!status.equals(other.status)) {
-			return false;
-		}
-		if (types == null) {
-			if (other.types != null) {
-				return false;
-			}
-		} else if (!types.equals(other.types)) {
-			return false;
-		}
-		return true;
+				+ priceProduct + ", status=" + status + ", Types product=" + types + "]";
 	}
 
 }

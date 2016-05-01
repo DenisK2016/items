@@ -1,5 +1,6 @@
 package by.dk.training.items.dataaccess.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -33,29 +34,27 @@ public class ProductDaoImpl extends AbstractDaoImpl<Product, Long> implements Pr
 
 		CriteriaQuery<Product> cq = cb.createQuery(Product.class);
 
-		Root<Product> from = cq.from(Product.class); // SELECT .. FROM ...
+		Root<Product> from = cq.from(Product.class);
 
-		cq.select(from); // Указывает что селектать SELECT *. from - это
-							// таблица,
-							// а from.get... - это конкретная колонка
+		cq.select(from);
 
-		if (filter.getNameProduct() != null) {
+		boolean nameProduct = (filter.getNameProduct() != null);
+		boolean limit = (filter.getLimitProduct() != null);
+		boolean price = (filter.getPriceProduct() != null);
+		boolean status = (filter.getStatus() != null);
+		boolean types = (filter.getTypes() != null);
+		boolean filt = (nameProduct || limit || price || status || types);
+
+		if (filt) {
 			Predicate nProductEqualCondition = cb.equal(from.get(Product_.nameProduct), filter.getNameProduct());
-			cq.where(nProductEqualCondition);
+			Predicate lProductEqualCondition = cb.equal(from.get(Product_.limit), filter.getLimitProduct());
+			Predicate pProductEqualCondition = cb.equal(from.get(Product_.priceProduct), filter.getPriceProduct());
+			Predicate statustEqualCondition = cb.equal(from.get(Product_.status), filter.getStatus());
+			Predicate typesEqualCondition = cb.isMember(filter.getTypes(), from.get(Product_.types));
+			cq.where(cb.or(nProductEqualCondition, lProductEqualCondition, pProductEqualCondition,
+					statustEqualCondition, typesEqualCondition));
 		}
 
-		if (filter.getLimitProduct() != null) {
-			Predicate lProductEqualCondition = cb.equal(from.get(Product_.limit), filter.getLimitProduct());
-			cq.where(lProductEqualCondition);
-		}
-		if (filter.getPriceProduct() != null) {
-			Predicate pProductEqualCondition = cb.equal(from.get(Product_.priceProduct), filter.getPriceProduct());
-			cq.where(pProductEqualCondition);
-		}
-		if (filter.getStatus() != null) {
-			Predicate statustEqualCondition = cb.equal(from.get(Product_.status), filter.getStatus());
-			cq.where(statustEqualCondition);
-		}
 		// set fetching
 		if (filter.isFetchType()) {
 			from.fetch(Product_.types, JoinType.LEFT);
@@ -76,6 +75,14 @@ public class ProductDaoImpl extends AbstractDaoImpl<Product, Long> implements Pr
 
 		// set execute query
 		List<Product> allitems = q.getResultList();
+		List<Product> all = new ArrayList<>();
+
+		for (Product pr : allitems) {
+			if (!all.contains(pr)) {
+				all.add(pr);
+			}
+		}
+		allitems = all;
 
 		return allitems;
 	}

@@ -2,9 +2,12 @@ package by.dk.training.items.dataaccess.filters;
 
 import javax.persistence.metamodel.SingularAttribute;
 
+import by.dk.training.items.datamodel.Type;
+
 public class TypeFilter {
 
 	private String typeName;
+	private Type parentType;
 
 	private SingularAttribute sortProperty;
 	private boolean sortOrder;
@@ -19,6 +22,14 @@ public class TypeFilter {
 
 	public void setTypeName(String typeName) {
 		this.typeName = typeName;
+	}
+
+	public Type getParentType() {
+		return parentType;
+	}
+
+	public void setParentType(Type parentType) {
+		this.parentType = parentType;
 	}
 
 	public SingularAttribute getSortProperty() {

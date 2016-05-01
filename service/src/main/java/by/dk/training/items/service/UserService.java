@@ -4,7 +4,6 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
-import by.dk.training.items.dataaccess.filters.UserCredentialsFilter;
 import by.dk.training.items.dataaccess.filters.UserFilter;
 import by.dk.training.items.datamodel.User;
 import by.dk.training.items.datamodel.UserCredentials;
@@ -28,8 +27,6 @@ public interface UserService {
 	void delete(Long id);
 
 	List<User> find(UserFilter userFilter);
-
-	List<UserCredentials> find(UserCredentialsFilter credentialsFilter);
 
 	List<User> getAll();
 
